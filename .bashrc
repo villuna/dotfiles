@@ -28,7 +28,7 @@ shopt -s checkwinsize
 #shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -79,18 +79,22 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -112,26 +116,25 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Powerline configuration
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  source /usr/share/powerline/bindings/bash/powerline.sh
+fi
+. "$HOME/.cargo/env"
+
+alias i3conf='vim ~/.config/i3/config'
+alias polyconf='vim ~/.config/polybar/config'
+alias picomconf='vim ~/.config/picom.conf'
+alias piconf='vim ~/.config/picom.conf'
+alias sysupdate='sudo aptitude update && sudo aptitude upgrade'
+
+# Hehe
 alias please='sudo $(history -p !!)'
-alias python=python3
-export PATH="/home/liam/.cargo/bin:$PATH"
-export PATH=":/usr/local/go/bin:$PATH"
-export EDITOR=vim
-#alias vim='/usr/local/bin/vim'
-alias v='vim'
-alias ls='exa'
-alias lsl='exa -l'
 
-if [ -d "$HOME/.local/bin" ]; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-export POWERLINE_COMMAND=powerline
-export POWERLINE_CONFIG_COMMAND=powerline-config
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+export PATH="$PATH:$HOME/.local/bin:$HOME/.emacs.d/bin"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
-if [ -n "$DISPLAY" ]; then
-  xset b off
-fi
+export PATH="$PATH:$HOME/go/bin"
