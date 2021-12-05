@@ -19,8 +19,9 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
- (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 15 :weight 'semi-light)
-       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+ (setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'semi-light)
+       doom-variable-pitch-font (font-spec :family "sans" :size 13)
+       doom-unicode-font (font-spec :family "JuliaMono"))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -128,3 +129,6 @@
 ;;
 ;;
 ;;(setq +doom-dashboard-ascii-banner-fn #'what-we-do-every-night-pinky)
+
+(setq doom-emoji-fallback-font-families nil)
+(setq doom-symbol-fallback-font-families nil)
